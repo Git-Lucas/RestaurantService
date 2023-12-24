@@ -8,11 +8,13 @@ public class ItemRepository(AppDbContext context) : IItemRepository
     {
         item.RestaurantId = restaurantId;
         context.Items.Add(item);
+        context.SaveChanges();
     }
 
     public void CreateRestaurant(Restaurant restaurant)
     {
         context.Restaurants.Add(restaurant);
+        context.SaveChanges();
     }
 
     public bool ExistsRestaurant(int restaurantId)
@@ -39,10 +41,5 @@ public class ItemRepository(AppDbContext context) : IItemRepository
     public IEnumerable<Restaurant> GetAllRestaurants()
     {
         return context.Restaurants.ToList();
-    }
-
-    public void SaveChanges()
-    {
-        context.SaveChanges();
     }
 }

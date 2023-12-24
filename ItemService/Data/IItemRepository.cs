@@ -12,6 +12,4 @@ public interface IItemRepository
     IEnumerable<Item> GetAllByRestaurantId(int restaurantId);
     Item Get(int restaurantId, int itemId);
     void Create(int restaurantId, Item item);
-
-    void SaveChanges();
 }

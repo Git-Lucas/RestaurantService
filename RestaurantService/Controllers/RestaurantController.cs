@@ -2,17 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantService.Data;
 using RestaurantService.Dtos;
-using RestaurantService.ItemServiceCommunication;
 using RestaurantService.Models;
+using RestaurantService.RabbitMq;
 
 namespace RestaurantService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class RestaurantController(
-    IRestaurantRepository restaurantRepository, 
+    IRestaurantRepository restaurantRepository,
     IMapper mapper,
-    IItemServiceHttpClient itemServiceHttpClient) : ControllerBase
+    IRabbitMqClient rabbitMqClient) : ControllerBase
 {
     [HttpGet]
     public ActionResult<IEnumerable<RestaurantReadDto>> GetAll()
@@ -38,11 +38,11 @@ public class RestaurantController(
 
         RestaurantReadDto restaurantReadDto = mapper.Map<RestaurantReadDto>(restaurant);
 
-        itemServiceHttpClient.SendRestaurantToItemService(restaurantReadDto);
+        rabbitMqClient.SendRestaurant(restaurantReadDto);
 
         return CreatedAtRoute(
-            routeName: nameof(GetById), 
-            routeValues: new { restaurantReadDto.Id }, 
+            routeName: nameof(GetById),
+            routeValues: new { restaurantReadDto.Id },
             value: restaurantReadDto);
     }
 
