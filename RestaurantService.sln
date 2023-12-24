@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestauranteService", "RestauranteService\RestauranteService.csproj", "{F78D696C-25DD-475D-AA4E-D78E2C63765F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantService", "RestaurantService\RestaurantService.csproj", "{F78D696C-25DD-475D-AA4E-D78E2C63765F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemService", "ItemService\ItemService.csproj", "{1F1B9820-AC8A-4AFC-A607-39F61D8AC3CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F78D696C-25DD-475D-AA4E-D78E2C63765F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F78D696C-25DD-475D-AA4E-D78E2C63765F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F78D696C-25DD-475D-AA4E-D78E2C63765F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F1B9820-AC8A-4AFC-A607-39F61D8AC3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F1B9820-AC8A-4AFC-A607-39F61D8AC3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F1B9820-AC8A-4AFC-A607-39F61D8AC3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F1B9820-AC8A-4AFC-A607-39F61D8AC3CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

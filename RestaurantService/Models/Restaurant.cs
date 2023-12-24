@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestauranteService.Models;
+namespace RestaurantService.Models;
 
-public class Restaurante
+public class Restaurant
 {
     [Key]
     public required int Id { get; set; }
     public required string Name { get; set; }
     public required string Address { get; set; }
-    public required Uri Site { get; set; }
+    public required string Site { get; set; }
 }
