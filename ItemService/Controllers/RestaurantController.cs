@@ -3,7 +3,6 @@ using ItemService.Data;
 using ItemService.Dtos;
 using ItemService.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace ItemService.Controllers;
 

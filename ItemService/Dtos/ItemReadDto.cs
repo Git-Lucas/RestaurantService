@@ -1,6 +1,6 @@
 ﻿namespace ItemService.Dtos;
 
-public class ItemReadDto
+public record ItemReadDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

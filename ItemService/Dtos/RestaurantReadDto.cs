@@ -1,6 +1,6 @@
 ﻿namespace ItemService.Dtos;
 
-public class RestaurantReadDto
+public record RestaurantReadDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
