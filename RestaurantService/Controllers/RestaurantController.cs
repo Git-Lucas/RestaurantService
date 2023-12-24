@@ -35,7 +35,6 @@ public class RestaurantController(
     {
         Restaurant restaurant = mapper.Map<Restaurant>(restaurantCreateDto);
         restaurantRepository.Create(restaurant);
-        restaurantRepository.SaveChanges();
 
         RestaurantReadDto restaurantReadDto = mapper.Map<RestaurantReadDto>(restaurant);
 
@@ -45,5 +44,13 @@ public class RestaurantController(
             routeName: nameof(GetById), 
             routeValues: new { restaurantReadDto.Id }, 
             value: restaurantReadDto);
+    }
+
+    [HttpDelete]
+    public ActionResult DeleteAll()
+    {
+        restaurantRepository.DeleteAll();
+
+        return Ok();
     }
 }

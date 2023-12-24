@@ -9,6 +9,15 @@ public class RestaurantRepository(AppDbContext context) : IRestaurantRepository
         ArgumentNullException.ThrowIfNull(restaurant);
 
         context.Restaurants.Add(restaurant);
+
+        context.SaveChanges();
+    }
+
+    public void DeleteAll()
+    {
+        context.Restaurants.RemoveRange(context.Restaurants);
+
+        context.SaveChanges();
     }
 
     public IEnumerable<Restaurant> GetAll()
@@ -22,10 +31,5 @@ public class RestaurantRepository(AppDbContext context) : IRestaurantRepository
             ?? throw new Exception($"The {nameof(Restaurant)} was not found.");
 
         return restaurant;
-    }
-
-    public void SaveChanges()
-    {
-        context.SaveChanges();
     }
 }
