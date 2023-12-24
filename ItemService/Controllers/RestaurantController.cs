@@ -3,6 +3,7 @@ using ItemService.Data;
 using ItemService.Dtos;
 using ItemService.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ItemService.Controllers;
 
@@ -18,5 +19,16 @@ public class RestaurantController(IItemRepository itemRepository, IMapper mapper
         IEnumerable<RestaurantReadDto> restaurantsReadDto = mapper.Map<IEnumerable<RestaurantReadDto>>(restaurants);
 
         return Ok(restaurantsReadDto);
+    }
+
+    [HttpPost]
+    public ActionResult ReceiveRestaurantFromRestaurantService([FromBody] RestaurantReadDto restaurantReadDto)
+    {
+        Restaurant restaurant = mapper.Map<Restaurant>(restaurantReadDto);
+        
+        itemRepository.CreateRestaurant(restaurant);
+        itemRepository.SaveChanges();
+        
+        return Ok();
     }
 }

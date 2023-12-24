@@ -2,13 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantService.Data;
 using RestaurantService.Dtos;
+using RestaurantService.ItemServiceCommunication;
 using RestaurantService.Models;
 
 namespace RestaurantService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RestaurantController(IRestaurantRepository restaurantRepository, IMapper mapper) : ControllerBase
+public class RestaurantController(
+    IRestaurantRepository restaurantRepository, 
+    IMapper mapper,
+    IItemServiceHttpClient itemServiceHttpClient) : ControllerBase
 {
     [HttpGet]
     public ActionResult<IEnumerable<RestaurantReadDto>> GetAll()
@@ -34,6 +38,8 @@ public class RestaurantController(IRestaurantRepository restaurantRepository, IM
         restaurantRepository.SaveChanges();
 
         RestaurantReadDto restaurantReadDto = mapper.Map<RestaurantReadDto>(restaurant);
+
+        itemServiceHttpClient.SendRestaurantToItemService(restaurantReadDto);
 
         return CreatedAtRoute(
             routeName: nameof(GetById), 
