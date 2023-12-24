@@ -26,7 +26,6 @@ public class RestaurantController(IItemRepository itemRepository, IMapper mapper
         Restaurant restaurant = mapper.Map<Restaurant>(restaurantReadDto);
         
         itemRepository.CreateRestaurant(restaurant);
-        itemRepository.SaveChanges();
         
         return Ok();
     }

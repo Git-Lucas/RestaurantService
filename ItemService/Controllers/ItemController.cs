@@ -49,7 +49,6 @@ public class ItemController(IItemRepository itemRepository, IMapper mapper) : Co
         Item item = mapper.Map<Item>(itemCreateDto);
 
         itemRepository.Create(restaurantId, item);
-        itemRepository.SaveChanges();
 
         ItemReadDto itemReadDto = mapper.Map<ItemReadDto>(item);
 
