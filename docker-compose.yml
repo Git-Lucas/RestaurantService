@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  restaurant-service:
+    container_name: restaurantservice
+    image: ${DOCKER_REGISTRY-}dockerlucasoliveira/restaurantservice:1.0
+    build:
+        context: .
+        dockerfile: RestaurantService/Dockerfile
+    ports:
+        - "8080:8080"
+    depends_on:
+        - db
+        - rabbitmq
+    entrypoint: ["/bin/sh", "-c", "sleep 60 && dotnet RestaurantService.dll"]
+    restart: always
+
+  item-service:
+    container_name: itemservice
+    image: ${DOCKER_REGISTRY-}dockerlucasoliveira/itemservice:1.0
+    build:
+        context: .
+        dockerfile: ItemService/Dockerfile
+    ports:
+        - "8081:8080"
+    depends_on:
+        - rabbitmq
+    entrypoint: ["/bin/sh", "-c", "sleep 60 && dotnet ItemService.dll"]
+    restart: always
+  
+  db:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+
+  rabbitmq:
+    container_name: rabbitmqservice
+    image: rabbitmq:3-management   
+    hostname: rabbitmqservice
+    restart: always
