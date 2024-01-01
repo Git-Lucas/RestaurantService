@@ -19,14 +19,4 @@ public class RestaurantController(IItemRepository itemRepository, IMapper mapper
 
         return Ok(restaurantsReadDto);
     }
-
-    [HttpPost]
-    public ActionResult ReceiveRestaurantFromRestaurantService([FromBody] RestaurantReadDto restaurantReadDto)
-    {
-        Restaurant restaurant = mapper.Map<Restaurant>(restaurantReadDto);
-        
-        itemRepository.CreateRestaurant(restaurant);
-        
-        return Ok();
-    }
 }

@@ -11,7 +11,7 @@ namespace ItemService.Controllers;
 public class ItemController(IItemRepository itemRepository, IMapper mapper) : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<ItemReadDto>> GetAllItemsByRestaurantId([FromBody] int restaurantId)
+    public ActionResult<IEnumerable<ItemReadDto>> GetAllItemsByRestaurantId([FromRoute] int restaurantId)
     {
         if (!itemRepository.ExistsRestaurant(restaurantId))
         {

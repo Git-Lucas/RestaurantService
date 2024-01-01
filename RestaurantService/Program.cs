@@ -11,9 +11,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new Exception("Connection string was not found.");
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseInMemoryDatabase("restaurantdb"));
+}
+else
+{
+    string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new Exception("Connection string was not found.");
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+        opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+}
 
 builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 builder.Services.AddSingleton<IRabbitMqClient, RabbitMqClient>();
@@ -39,6 +48,9 @@ app.MapControllers();
 
 using IServiceScope scope = app.Services.CreateScope();
 AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-context.Database.Migrate();
+if (context.Database.IsRelational())
+{
+    context.Database.Migrate();
+}
 
 app.Run();
